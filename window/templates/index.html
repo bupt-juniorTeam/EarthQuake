@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        {% for item in th %}
+            <th>{{ item }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in rows %}
+        <tr>
+            {% for item in row %}
+                <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+
+</table>
+<div id="pages" class="text-center">
+    <nav>
+        <ul class="pagination">
+            <li class="step-links">
+                {% if rows.has_previous %}
+                    <a class='active' href="?page={{ rows.previous_page_number }}">上一页</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ rows.number }} of {{ rows.paginator.num_pages }}</span>
+
+                {% if rows.has_next %}
+                    <a class='active' href="?page={{ rows.next_page_number }}">下一页</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
