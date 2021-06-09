@@ -1,7 +1,9 @@
+from django.db.models import F
 from django.test import TestCase
 from django.urls import resolve
 from .models import *
 from window.views import home_page
+from .encode import *
 
 
 class URLTest(TestCase):
@@ -12,10 +14,31 @@ class URLTest(TestCase):
 
 
 class ModelTest(TestCase):
-    def test_create_model(self):
-        location = Location.objects.create(longitude=22.35, latitude=123.11)
-        resource = Resource.objects.create(url="test", name="correct")
-        earthquake = EarthQuake.objects.create(
-            location=location, resource=resource, time=timezone.now(), city="233331100000", magnitude="特大"
+    def test_create_affection(self):
+        earthquake = Earthquake.objects.create(
+            source=get_source_code('公网'),
+            where=get_location_code('北京市海淀区'),
+            when=get_time_code('2021年6月19日15时22分10秒')
         )
-        self.assertEqual(EarthQuake.objects.count(), 1)
+        set = Set.objects.create(
+            earthquake=earthquake,
+            set=get_disaster_set_code('人员伤亡及失踪-死亡'),
+            count=0
+        )
+        set.count = F('count') + 1
+        set.save()
+        set.refresh_from_db()
+        affection = Affection.objects.create(
+            set=set,
+            index=get_index_code(set.count),
+            grade=get_grade_code('特大')
+        )
+        self.assertEqual(Affection.objects.count(), 1)
+        affection = Affection.objects.get(id=1)
+        self.assertEqual(affection.set.earthquake.source, '101')
+        self.assertEqual(affection.set.earthquake.where, '110108000000')
+        self.assertEqual(affection.set.earthquake.when, '20210619152210')
+        self.assertEqual(affection.set.set, '111')
+        self.assertEqual(affection.set.count, 1)
+        self.assertEqual(affection.index, '001')
+        self.assertEqual(affection.grade, '0')

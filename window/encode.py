@@ -1,6 +1,6 @@
 import json
 
-location_data = open('location_dict.json', encoding='utf-8')
+location_data = open('window/data/location_dict.json', encoding='utf-8')
 location_dict = json.load(location_data)
 source = {
     '公网': '101',
@@ -47,13 +47,13 @@ location_dict_value = {}
 source_value = {}
 disaster_info_value = {}
 disaster_grade_value = {}
-for k, v in location_dict:
+for k, v in location_dict.items():
     location_dict_value.update({v: k})
-for k, v in source:
+for k, v in source.items():
     source_value.update({v: k})
-for k, v in disaster_info:
+for k, v in disaster_info.items():
     disaster_info_value.update({v: k})
-for k, v in disaster_grade:
+for k, v in disaster_grade.items():
     disaster_grade_value.update({v: k})
 
 
@@ -77,6 +77,14 @@ def get_index_code(index):
         return '00' + str(index)
 
 
+def get_grade_code(disaster_grade_key):
+    return disaster_grade[disaster_grade_key]
+
+
+def get_disaster_set_code(disaster_info_key):
+    return disaster_info[disaster_info_key]
+
+
 def get_disaster_info_code(disaster_info_key, index, disaster_grade_key):
     return disaster_info[disaster_info_key] + get_index_code(index) + disaster_grade[disaster_grade_key]
 
@@ -93,8 +101,8 @@ def get_disaster_code(location_key, disaster_info_key, index, disaster_grade_key
 
 # 基本震情编码 26位
 # time_key格式：2008年5月12日14时28分04
-def get_base_code(location_key, time_key):
-    location = get_location_code(location_key)
+
+def get_time_code(time_key):
     year = list('0000')
     month = list('00')
     day = list('00')
@@ -134,7 +142,13 @@ def get_base_code(location_key, time_key):
             if flag:
                 count = 0
                 index += 1
-    return location + "".join(year) + "".join(month) + "".join(day) + "".join(hour) + "".join(minute) + "".join(second)
+    return "".join(year) + "".join(month) + "".join(day) + "".join(hour) + "".join(minute) + "".join(second)
+
+
+def get_base_code(location_key, time_key):
+    location = get_location_code(location_key)
+    time = get_time_code(time_key)
+    return location + time
 
 
 # 数据来源解码
