@@ -3,23 +3,23 @@
 
 class EarthQuake{
 id
-time
-location
-magnitude
+source: 数据来源 3位
+where：地理信息 12位
+when：时间 14位
 }
 
-class Location{
+class Set{
 id
-longitude
-latitude
+set：类代码 3位
+count: 此set中有多少条数据 Int
 }
 
-class Resource{
+class Affection{
 id
-url
-name
+index：序号 3位
+grade: 破坏等级 1位
 }
 
-EarthQuake "n"  -- "1" Location
-EarthQuake "n"  -- "1" Resource
+EarthQuake "1"  -- "n" Set
+Set "1" -- "n" Affection
 @enduml
