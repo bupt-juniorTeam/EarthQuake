@@ -3,6 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
+def base(request):
+    return render(request,'window/base.html')
+
 def home_page(request):
     # if request.method=='POST':
     #     return HttpResponse('asd')
@@ -25,4 +28,4 @@ def home_page(request):
         except InvalidPage:
             # 如果请求的页数不存在, 重定向页面
             return HttpResponse('找不到页面的内容')
-    return render(request, 'index.html', {'th': th, 'rows': rows})
+    return render(request, 'window/index.html', {'th': th, 'rows': rows})
