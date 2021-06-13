@@ -1,3 +1,3 @@
 # EarthQuake
 
-![参考项目](https://github.com/zuley/vue-gaode)
+[参考项目](https://github.com/zuley/vue-gaode)
