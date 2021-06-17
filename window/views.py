@@ -1,6 +1,10 @@
+import os
+
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
+
+from window.crud import retrieve_earthquake
 
 
 def base(request):
@@ -29,3 +33,15 @@ def lists(request):
             # 如果请求的页数不存在, 重定向页面
             return HttpResponse('找不到页面的内容')
     return render(request, 'window/lists.html', {'th': th, 'rows': rows})
+
+def gen(request):
+    when = request.GET.get('when')
+    where = request.GET.get('where')
+
+    cwd = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    f = open(cwd + '\\' + when + " - " + where + ".txt", 'w')
+    f.write(retrieve_earthquake(where, when))
+    response = FileResponse(open(cwd + '\\' + when + " - " + where + ".txt", "rb"))
+    response['Content-Type'] = "application/octet-stream"
+    response['Content-Disposition'] = 'attachment;filename="网站开发说明.md"'
+    return response
