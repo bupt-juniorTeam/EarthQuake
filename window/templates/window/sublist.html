@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0038)http://localhost:8000/admin/auth/user/ -->
+<!-- saved from url=(0038)/admin/auth/user/ -->
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,8 +47,8 @@
 <!-- Container -->
 <div id="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="http://localhost:8000/window/"> </a>
-        <a class="navbar-brand" href="http://localhost:8000/window/">MSHD</a>
+        <a class="navbar-brand" href="/window/"> </a>
+        <a class="navbar-brand" href="/window/">MSHD</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -60,13 +60,13 @@
                     <a class="nav-link" aria-current="page" href="http://localhost:8080/">灾情地图</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link active" href="http://localhost:8000/window/lists/">灾情列表</a>
+                    <a class="nav-link active" href="/window/lists/">灾情列表</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8000/window/report/">灾情上报</a>
+                    <a class="nav-link" href="/window/report/">灾情上报</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8000/window/download/">下载</a>
+                    <a class="nav-link" href="/window/download/">下载</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -112,7 +112,7 @@
 
                     <tr>
                         {% for item in row %}
-                            <a href="http://localhost:8000/window/lists/sublists/{{ item.id }}">
+                            <a href="/window/lists/sublists/{{ item.id }}">
                             <td>{{ item }}</td>
                             </a>
                         {% endfor %}
