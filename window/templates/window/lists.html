@@ -17,7 +17,7 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 150px;
+            height: 100px;
         }
     </style>
     {% load static %}
@@ -37,13 +37,83 @@
     {#            crossorigin="anonymous"></script>#}
 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-
 <body>
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">灾情提交</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="TODO" id="affection_form" class="needs-validation">
+
+                    <div class="form-row  mb-3" style="display: flex;">
+                        <label class="col-md-3">所属地震</label>
+                        <label class="col-md-8">todo</label>
+                    </div>
+
+                    <div class="form-row  mb-3" style="display: flex;">
+                        <label class="col-md-3">类型</label>
+                        <label class="col-md-8">
+                            <select name="disaster_grade" form="affection_form" class="form-control">
+                                <option value="111">死亡</option>
+                                <option value="112">受伤</option>
+                                <option value="113">失踪</option>
+                                <option value="221">房屋破坏-土木</option>
+                                <option value="222">房屋破坏-砖木</option>
+                                <option value="223">房屋破坏-砖混</option>
+                                <option value="224">房屋破坏-框架</option>
+                                <option value="225">房屋破坏-其他</option>
+                                <option value="331">交通</option>
+                                <option value="332">供水</option>
+                                <option value="333">输油</option>
+                                <option value="334">燃气</option>
+                                <option value="335">电力</option>
+                                <option value="336">通信</option>
+                                <option value="337">水利</option>
+                                <option value="441">崩塌</option>
+                                <option value="442">滑坡</option>
+                                <option value="443">泥石流</option>
+                                <option value="444">岩溶塌陷</option>
+                                <option value="445">地裂缝</option>
+                                <option value="446">地面沉降</option>
+                                <option value="447">次生灾害-其他</option>
+                                <option value="551">基本震情</option>
+                                <option value="552">灾情预测</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="form-row  mb-3" style="display: flex;">
+                        <label class="col-md-3">破坏程度</label>
+                        <label class="col-md-8">
+                            <select name="disaster_grade" form="affection_form" class="form-control">
+                                <option value="0">特大</option>
+                                <option value="1">重大</option>
+                                <option value="2">较大</option>
+                                <option value="3">一般</option>
+                            </select></label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-success">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Container -->
 <div id="container">
@@ -102,6 +172,10 @@
                     {% for item in th %}
                         <th>{{ item }}</th>
                     {% endfor %}
+
+                    <th>
+                        灾情上报
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -110,13 +184,18 @@
                         {% for item in row %}
                             <td>{{ item }}</td>
                         {% endfor %}
+                        <td>
+                            <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                    data-target="#exampleModal">上报
+                            </button>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
 
             </table>
         </div>
-
+        <!-- Modal -->
         <br class="clear">
     </div>
     <!-- END Content -->
@@ -143,7 +222,7 @@
                     {% if rows.has_next %}
                         <li class="page-item">
 
-                            <a class="page-link" href="?page={{ rows.next_page_number }}">上一页</a>
+                            <a class="page-link" href="?page={{ rows.next_page_number }}">下一页</a>
                         </li>
                     {% else %}
                         <li class="page-item disabled">
