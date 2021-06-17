@@ -23,18 +23,6 @@
     {% load static %}
 
     <link rel="stylesheet" type="text/css" href={% static 'window/base.css' %}>
-    {#    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->#}
-    {#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"#}
-    {#          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">#}
-    {##}
-    {#    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->#}
-    {#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"#}
-    {#          integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">#}
-    {##}
-    {#    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->#}
-    {#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"#}
-    {#            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"#}
-    {#            crossorigin="anonymous"></script>#}
 
 
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
@@ -44,76 +32,6 @@
 </head>
 
 <body>
-<!-- modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">灾情提交</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <form method="post" action="affection" id="affection_form" class="needs-validation">
-                    {% csrf_token %}
-                    <div class="form-row  mb-3" style="display: flex;">
-                        <label class="col-md-3">所属地震</label>
-                        <label class="col-md-8">todo</label>
-                    </div>
-
-                    <div class="form-row  mb-3" style="display: flex;">
-                        <label class="col-md-3">类型</label>
-                        <label class="col-md-8">
-                            <select name="disaster_info" form="affection_form" class="form-control">
-                                <option value="111">死亡</option>
-                                <option value="112">受伤</option>
-                                <option value="113">失踪</option>
-                                <option value="221">房屋破坏-土木</option>
-                                <option value="222">房屋破坏-砖木</option>
-                                <option value="223">房屋破坏-砖混</option>
-                                <option value="224">房屋破坏-框架</option>
-                                <option value="225">房屋破坏-其他</option>
-                                <option value="331">交通</option>
-                                <option value="332">供水</option>
-                                <option value="333">输油</option>
-                                <option value="334">燃气</option>
-                                <option value="335">电力</option>
-                                <option value="336">通信</option>
-                                <option value="337">水利</option>
-                                <option value="441">崩塌</option>
-                                <option value="442">滑坡</option>
-                                <option value="443">泥石流</option>
-                                <option value="444">岩溶塌陷</option>
-                                <option value="445">地裂缝</option>
-                                <option value="446">地面沉降</option>
-                                <option value="447">次生灾害-其他</option>
-                                <option value="551">基本震情</option>
-                                <option value="552">灾情预测</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="form-row  mb-3" style="display: flex;">
-                        <label class="col-md-3">破坏程度</label>
-                        <label class="col-md-8">
-                            <select name="disaster_grade" form="affection_form" class="form-control">
-                                <option value="0">特大</option>
-                                <option value="1">重大</option>
-                                <option value="2">较大</option>
-                                <option value="3">一般</option>
-                            </select></label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-warning" data-dismiss="modal">取消</button>
-                <button type="submit" class="btn btn-outline-success">提交</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Container -->
 <div id="container">
@@ -172,28 +90,15 @@
                     {% for item in th %}
                         <th>{{ item }}</th>
                     {% endfor %}
-
-                    <th>
-                        灾情上报
-                    </th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for row in rows %}
-
                     <tr>
                         {% for item in row %}
-                            <a href="http://localhost:8000/window/lists/sublists/{{ item.id }}">
                             <td>{{ item }}</td>
-                            </a>
                         {% endfor %}
-                        <td>
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
-                                    data-target="#exampleModal">上报
-                            </button>
-                        </td>
                     </tr>
-
                 {% endfor %}
                 </tbody>
 
