@@ -1,8 +1,8 @@
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse
 
-from window.crud import retrieve_earthquake
+from window.crud import *
 
 
 def base(request):
@@ -34,6 +34,7 @@ def lists(request):
     return render(request, 'window/lists.html',
                   {'th': th, 'rows': rows, 'rows_range': paginator.page_range})
 
+
 def genByWhenAndWhere(request):
     when = request.GET.get('when')
     where = request.GET.get('where')
@@ -45,3 +46,30 @@ def genByWhenAndWhere(request):
     response['Content-Type'] = "application/octet-stream"
     response['Content-Disposition'] = 'attachment;filename="网站开发说明.md"'
     return response
+
+
+def report(request):
+    return render(request, 'window/report.html')
+
+
+def report_earthquake(request):
+    source = request.POST['source']
+    where = request.POST['province'] + request.POST['city'] + request.POST['area']
+    when = request.POST['when']
+    date, time = when.split('T')
+    year, month, day = date.split('-')
+    hour, minute, second = time.split(':')
+    when = year + month + day + hour + minute + second
+    longitude = request.POST['longitude']
+    latitude = request.POST['latitude']
+    if request.POST['east_or_west'] == 'west':
+        longitude = -longitude
+    if request.POST['north_or_south'] == 'south':
+        latitude = -latitude
+    create_new_earthquake(source, where, when, longitude, latitude)
+    return redirect('/window/lists/')
+
+
+def report_affection(request):
+
+    return redirect('/window/lists/')

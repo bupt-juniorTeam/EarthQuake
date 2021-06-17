@@ -4,6 +4,8 @@ from django.urls import resolve
 from .models import *
 from window.views import lists
 from .encode import *
+import pandas as pd
+import os
 
 
 class URLTest(TestCase):
@@ -42,3 +44,20 @@ class ModelTest(TestCase):
         self.assertEqual(affection.set.count, 1)
         self.assertEqual(affection.index, '001')
         self.assertEqual(affection.grade, '0')
+
+
+class DataRead(TestCase):
+    def test_read_earthquake(self):
+        # print(os.getcwd())
+        df= pd.read_excel('./window/data/eqList.xls')
+        self.assertTrue(True)
+
+    def test_encode_earthquake(self):
+        df = pd.read_excel('./window/data/eqList.xls')
+        for index, row in df.iterrows():
+            earthquake = Earthquake.objects.create(
+                source=get_source_code('公网'),
+                where=get_location_code(row['参考位置']),
+                when=get_time_code('发震时刻')
+            )
+            earthquake.save()
