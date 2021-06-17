@@ -6,7 +6,7 @@ from django.http import HttpResponse
 def base(request):
     return render(request,'window/base.html')
 
-def home_page(request):
+def lists(request):
     # if request.method=='POST':
     #     return HttpResponse('asd')
     th = ['1', '2', '3', '4']

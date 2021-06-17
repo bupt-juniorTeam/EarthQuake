@@ -4,4 +4,5 @@ from window import views
 
 urlpatterns = [
     path('', views.base),
+    path('lists/', views.lists),
 ]
