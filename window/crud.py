@@ -4,11 +4,13 @@ from .models import *
 from .encode import *
 
 
-def create_new_earthquake(from_city, where, when):
+def create_new_earthquake(source, where, when, longitude, latitude):
     Earthquake.objects.create(
-        source=get_source_code(from_city),
+        source=source,
         where=get_location_code(where),
-        when=get_time_code(when)
+        when=when,
+        longitude=longitude,
+        latitude=latitude
     )
 
 
@@ -58,5 +60,3 @@ def retrieve_set(earthquake_id, set_key):
 
 def retrieve_affection(set_id):
     return Affection.objects.filter(Q(set=Set.objects.get(id=set_id)))
-
-
