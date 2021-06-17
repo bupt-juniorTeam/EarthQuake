@@ -1,5 +1,6 @@
 import json
 
+from django.core import serializers
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse, JsonResponse
@@ -83,10 +84,28 @@ def sublists(request):
             except InvalidPage:
                 # 如果请求的页数不存在, 重定向页面
                 return HttpResponse('找不到页面的内容')
-        return render(request, 'window/lists.html',
+        return render(request, 'window/sublist.html',
                       {'th': th, 'rows': Rows, 'rows_range': paginator.page_range})
 
 
+def download(request):
+    # cwd = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # filename=str(cwd) + '\\' + "data" + ".json"
+    # f = open(filename,'w')
+    # f.write(Earthquake.objects.all())
+    # response = FileResponse(open(filename, "rb"))
+    # response['Content-Type'] = "application/octet-stream"
+    # response['Content-Disposition'] = 'attachment;filename=abc.jdon'
+
+    data = {}
+    province = serializers.serialize("json", Earthquake.objects.all())
+    data["data"] = json.loads(province)
+
+    response= FileResponse(json.loads(province))
+    response['Content-Type'] = "application/octet-stream"
+    response['Content-Disposition'] = 'attachment;filename="data.json"'
+
+    return response
 
 def genByWhenAndWhere(request):
     when = request.GET.get('when')
