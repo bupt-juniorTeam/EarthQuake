@@ -1,0 +1,104 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER */
+
+#header {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #417690;
+    color: #ffc;
+    overflow: hidden;
+}
+
+#header a:link, #header a:visited {
+    color: #fff;
+}
+
+#header a:focus, #header a:hover {
+    text-decoration: underline;
+}
+
+#branding {
+    float: left;
+}
+
+#branding h1 {
+    padding: 0;
+    margin: 0 20px 0 20px;
+    font-weight: 400;
+    font-size: 24px;
+    color: #f5dd5d;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: #f5dd5d;
+}
+
+
+#branding a:hover {
+    text-decoration: none;
+}
+
+
+/* BAR */
+/* BREADCRUMBS */
+
+div.bar {
+    display: flex;
+    background: #79aec8;
+    border: none;
+    padding: 0 0 0 30px;
+    font-family: 等线;
+    font-size: 10px;
+    color: #c4dce8;
+    text-align: center;
+}
+
+div.bar h2 {
+    margin: 10px 0;
+}
+
+div.bar a {
+    color: #fff;
+    margin: 0 10px 0 10px;
+}
+
+div.bar a:focus, div.bar a:hover {
+    color: #c4dce8;
+}
+
+/* LINKS */
+
+a:link, a:visited {
+    color: #447e9b;
+    text-decoration: none;
+}
+
+a:focus, a:hover {
+    color: #036;
+}
+
+a:focus {
+    text-decoration: underline;
+}
+
+a img {
+    border: none;
+}
+
+a.section:link, a.section:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+a.section:focus, a.section:hover {
+    text-decoration: underline;
+}
