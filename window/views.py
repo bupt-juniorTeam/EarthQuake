@@ -9,9 +9,11 @@ from pyecharts import options as opts
 from pyecharts.charts import Bar, Grid, Line
 from window.crud import *
 from pyecharts.globals import CurrentConfig
+
 default_host = CurrentConfig.ONLINE_HOST
 custom_host = "https://cdnjs.cloudflare.com/ajax/libs/echarts/4.8.0/"
 CurrentConfig.ONLINE_HOST = custom_host
+
 
 def base(request):
     return render(request, 'window/base.html')
@@ -20,15 +22,18 @@ def base(request):
 def lists(request):
     # if request.method=='POST':
     #     return HttpResponse('asd')
-    th = ['来源', '地点', '时间', '经度', '维度']
+    th = ['id','来源', '地点', '时间', '经度', '纬度']
 
-    objects = get_earthquake(0, 10)
+    objects = get_earthquake()
     Rows = list()
     for i in range(10):
-        Rows.append([get_source_desc(objects[i].source),
+        Rows.append([objects[i].id,
+                     get_source_desc(objects[i].source),
                      get_earthquake_desc(objects[i].where),
                      get_time_desc(str(objects[i].when)),
-                     objects[i].latitude])
+                     objects[i].latitude,
+                    objects[i].longitude,]
+                    )
     paginator = Paginator(Rows, 10)
     if request.method == "GET":
         # 获取 url 后面的 page 参数的值, 首页不显示 page 参数, 默认值是 1
@@ -45,7 +50,7 @@ def lists(request):
             # 如果请求的页数不存在, 重定向页面
             return HttpResponse('找不到页面的内容')
     return render(request, 'window/lists.html',
-                  {'th': th, 'rows': rows, 'rows_range': paginator.page_range})
+                  {'th': th, 'rows': Rows, 'rows_range': paginator.page_range})
 
 
 def genByWhenAndWhere(request):
