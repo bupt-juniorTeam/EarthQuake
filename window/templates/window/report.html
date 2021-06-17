@@ -71,14 +71,14 @@
                 <div class="card-body">
                     <h5 class="card-title">地震上报</h5>
                     <form action="earthquake" method="post" id="earthquake_form" class="needs-validation">
-                        {#                        {% csrf_token %}#}
+                        {% csrf_token %}
 
                         <div class="form-row" style="display: flex;">
                             <div class="form-group col-md-4 mb-3">
                                 <label>省</label>
 
                                 <label>
-                                    <select id="province" form="earthquake_form" class="form-control"
+                                    <select name="province" id="province" form="earthquake_form" class="form-control"
                                             onchange="province_change()">
                                         {% for province in provinces %}
                                             <option value="{{ province }}"> {{ province }}</option>
@@ -89,7 +89,7 @@
                             <div class="form-group col-md-4 mb-3">
                                 <label>市</label>
                                 <label>
-                                    <select id="city" form="earthquake_form" class="form-control"
+                                    <select id="city" name="city" form="earthquake_form" class="form-control"
                                             onchange="city_change()">
                                     </select>
                                 </label>
@@ -98,7 +98,7 @@
                             <div class="form-group col-md-4 mb-3">
                                 <label>县</label>
                                 <label>
-                                    <select id="area" form="earthquake_form" class="form-control">
+                                    <select name="area" id="area" form="earthquake_form" class="form-control">
                                     </select>
                                 </label>
                             </div>
@@ -160,7 +160,8 @@
                                 </select>
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-outline-success" style="position: absolute;bottom: 10px;width: 150px">提交
+                        <button type="submit" class="btn btn-outline-success"
+                                style="position: absolute;bottom: 10px;width: 150px">提交
                         </button>
                     </form>
                 </div>

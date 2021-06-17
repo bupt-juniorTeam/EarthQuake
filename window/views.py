@@ -8,7 +8,10 @@ from django.http import HttpResponse, FileResponse
 from pyecharts import options as opts
 from pyecharts.charts import Bar, Grid, Line
 from window.crud import *
-
+from pyecharts.globals import CurrentConfig
+default_host = CurrentConfig.ONLINE_HOST
+custom_host = "https://cdnjs.cloudflare.com/ajax/libs/echarts/4.8.0/"
+CurrentConfig.ONLINE_HOST = custom_host
 
 def base(request):
     return render(request, 'window/base.html')
