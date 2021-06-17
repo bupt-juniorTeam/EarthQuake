@@ -28,4 +28,4 @@ def lists(request):
         except InvalidPage:
             # 如果请求的页数不存在, 重定向页面
             return HttpResponse('找不到页面的内容')
-    return render(request, 'window/index.html', {'th': th, 'rows': rows})
+    return render(request, 'window/lists.html', {'th': th, 'rows': rows})
