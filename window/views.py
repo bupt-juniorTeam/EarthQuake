@@ -26,7 +26,7 @@ def lists(request):
 
     objects = get_earthquake()
     Rows = list()
-    for i in range(10):
+    for i in range(len(objects)):
         Rows.append([objects[i].id,
                      get_source_desc(objects[i].source),
                      get_earthquake_desc(objects[i].where),
@@ -34,6 +34,7 @@ def lists(request):
                      objects[i].latitude,
                      objects[i].longitude, ]
                     )
+
     paginator = Paginator(Rows, 10)
     if request.method == "GET":
         # 获取 url 后面的 page 参数的值, 首页不显示 page 参数, 默认值是 1
@@ -49,8 +50,10 @@ def lists(request):
         except InvalidPage:
             # 如果请求的页数不存在, 重定向页面
             return HttpResponse('找不到页面的内容')
+    else:
+        rows = []
     return render(request, 'window/lists.html',
-                  {'th': th, 'rows': Rows, 'rows_range': paginator.page_range})
+                  {'th': th, 'rows': rows, 'rows_range': paginator.page_range})
 
 
 def genByWhenAndWhere(request):
