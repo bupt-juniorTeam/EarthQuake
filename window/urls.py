@@ -9,4 +9,5 @@ urlpatterns = [
     path('report/', views.report),
     path('report/earthquake', views.report_earthquake),
     path('report/affection', views.report_affection),
+    path('graph/',views.graph_vision),
 ]

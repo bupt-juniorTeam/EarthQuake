@@ -1,9 +1,10 @@
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse
-
+from pyecharts import options as opts
+from pyecharts.charts import Bar, Grid, Line
 from window.crud import *
-import os
+
 
 def base(request):
     return render(request, 'window/base.html')
@@ -81,6 +82,49 @@ def report_affection(request):
     set_code = request.POST['disaster_info']
     create_affection(earthquake_id, set_code, grade)
     return redirect('/window/lists/')
+
+
+def graph_vision(request):
+    columns = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+    frequency_Mia = [0.00686341, 0.16525505, 0.06423721, 0.02455568, 0.08432669, 0.09781415,
+                     0.1819265,  0.03405159, 0.00518489, 0.19687783, 0.03675546, 0.10215155]
+    frequency_Kun = [0.06329212, 0.11706359, 0.07749633, 0.01901045, 0.00198184, 0.05137212,
+                     0.10303296, 0.16241123, 0.24436542, 0.14581221, 0.00485712, 0.0093046]
+    frequency_Kai = [0.14999468, 0.23061133, 0.21486037, 0.03056881, 0.03298941, 0.00217304,
+                     0.04333368, 0.0789938, 0.12009764, 0.0481514, 0.02209792, 0.02612792]
+
+    bar = (
+        Bar()
+            .add_xaxis(["二级", "三级", "四级", "五级", "六级", "七级", "八级"])
+            .add_yaxis("四川省", [2, 3, 2, 1, 1, 0, 0])
+            .add_yaxis("云南省", [3, 4, 3, 2, 0, 0, 0])
+            .add_yaxis("河南省", [4, 1, 2, 1, 0, 0, 0])
+            .set_global_opts(
+            xaxis_opts=opts.AxisOpts(name="震级"),
+            yaxis_opts=opts.AxisOpts(name="发生地震城市数目"),
+            title_opts=opts.TitleOpts(title="2009年省份灾情震级图"))
+    )
+
+    line = (
+        Line()
+            .add_xaxis(columns)
+            .add_yaxis("绵阳", frequency_Mia)
+            .add_yaxis("昆明", frequency_Kun)
+            .add_yaxis("开封", frequency_Kai)
+            .set_global_opts(
+            title_opts=opts.TitleOpts(title="2009年城市发生地震频率图", pos_top="48%"),
+            legend_opts=opts.LegendOpts(pos_top="48%"),
+        )
+    )
+
+    grid = (
+        Grid()
+            .add(bar, grid_opts=opts.GridOpts(pos_bottom="60%"))
+            .add(line, grid_opts=opts.GridOpts(pos_top="60%"))
+
+    )
+    grid.render("window/templates/window/graph.html")
+    return render(request, "window/graph.html")
 
 def return_location(request):
     if(request.method=='GET'):
