@@ -193,9 +193,12 @@
                 </thead>
                 <tbody>
                 {% for row in rows %}
+
                     <tr>
                         {% for item in row %}
+                            <a href="http://localhost:8000/window/lists/sublists/{{ item.id }}">
                             <td>{{ item }}</td>
+                            </a>
                         {% endfor %}
                         <td>
                             <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
@@ -203,6 +206,7 @@
                             </button>
                         </td>
                     </tr>
+
                 {% endfor %}
                 </tbody>
 

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://localhost:8000/admin/auth/user/ -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>灾情列表</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        table {
+            margin: auto;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href={% static 'window/base.css' %}>
+
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<!-- Container -->
+<div id="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="http://localhost:8000/window/"> </a>
+        <a class="navbar-brand" href="http://localhost:8000/window/">MSHD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
+
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="http://localhost:8080/">灾情地图</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="http://localhost:8000/window/lists/">灾情列表</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8000/window/report/">灾情上报</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Link
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Link</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <!-- Content -->
+    <div id="content" class="flex">
+
+        <div style="width: 80%;margin: 50px auto auto;">
+            <table class="table table-sm">
+                <thead>
+                <tr>
+                    {% for item in th %}
+                        <th>{{ item }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in rows %}
+                    <tr>
+                        {% for item in row %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        <!-- Modal -->
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    <div class="footer">
+        <div id="pages" class="text-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+
+                    {% if rows.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ rows.previous_page_number }}">上一页</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="?page=#">上一页</a>
+                        </li>
+                    {% endif %}
+
+                    {% for i in rows_range %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+
+                    {% if rows.has_next %}
+                        <li class="page-item">
+
+                            <a class="page-link" href="?page={{ rows.next_page_number }}">下一页</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="?page=#">下一页</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- END Container -->
+
+
+</body>
+</html>
