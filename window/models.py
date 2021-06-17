@@ -8,6 +8,8 @@ class Earthquake(models.Model):
     source = models.CharField(max_length=3)
     where = models.CharField(max_length=12)
     when = models.CharField(max_length=14)
+    longitude = models.DecimalField(decimal_places=2, max_digits=5, default=0)
+    latitude = models.DecimalField(decimal_places=2, max_digits=5, default=0)
 
 
 class Set(models.Model):

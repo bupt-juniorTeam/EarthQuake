@@ -45,3 +45,16 @@ def genByWhenAndWhere(request):
     response['Content-Type'] = "application/octet-stream"
     response['Content-Disposition'] = 'attachment;filename="网站开发说明.md"'
     return response
+
+
+def report(request):
+    return None
+
+
+def report_earthquake(request):
+
+    return None
+
+
+def report_affection(request):
+    return None
