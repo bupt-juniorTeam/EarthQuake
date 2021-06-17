@@ -1,6 +1,8 @@
+import json
+
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse, FileResponse, JsonResponse
 
 from window.crud import *
 
@@ -49,7 +51,13 @@ def genByWhenAndWhere(request):
 
 
 def report(request):
-    return render(request, 'window/report.html')
+    if 'city' in request.POST.keys():
+        city = request.POST['province']
+    if 'area' in request.POST.keys():
+        area = request.POST['area']
+    location_data = open('window/data/data.json', encoding='utf-8')
+    location_dict = json.load(location_data)
+    return render(request, 'window/report.html', {'provinces': location_dict.keys})
 
 
 def report_earthquake(request):
@@ -75,3 +83,9 @@ def report_affection(request):
     grade = request.POST['disaster_grade']
 
     return redirect('/window/lists/')
+
+
+def return_data_json(request):
+    location_data = open('window/data/data.json', encoding='utf-8')
+    location_dict = json.load(location_data)
+    return JsonResponse(location_dict)

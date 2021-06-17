@@ -4,94 +4,254 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>灾情上报</title>
-
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 </head>
 
 
 <body>
+<!-- Container -->
+<div id="container">
 
-<!-- Content -->
-<div id="content" class="bd-example" style="display: flex;margin-top: 50px">
-    <div class="card" style="width: 35rem;height: 20rem; margin: auto">
-        <div class="card-body">
-            <h5 class="card-title">地震上报</h5>
-            <form action="earthquake" method="post" id="earthquake_form" class="needs-validation">
-                {% csrf_token %}
-                <div class="form-row" style="display: flex;">
-                    省：<input type="text" required name="province">
-                    市：<input type="text" required name="city">
-                    县：<input type="text"  name="area">
-                    <div class="col-md-6 mb-3">
-                        <label class="colFormLabel">经度</label>
-                        <div class="col-sm-10" style="display: flex;">
-                            <label class="col-md-8">
-                                <input name="longitude" type="number" required min="0" max="180" step="0.01"
-                                       class="form-control">
-                            </label>
-                            <label class="col-md-3">
-                                <select name="east_or_west" form="earthquake_form" class="form-control">
-                                    <option value="east" selected>E</option>
-                                    <option value="west">W</option>
-                                </select>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="colFormLabel">纬度</label>
-                        <div class="col-sm-10" style="display: flex;">
-                            <label class="col-md-8">
-                                <input name="latitude" type="number" required min="0" max="90" step="0.01"
-                                       class="form-control">
-                            </label>
-                            <label class="col-md-3">
-                                <select name="north_or_south" form="earthquake_form" class="form-control">
-                                    <option value="north" selected>N</option>
-                                    <option value="south">W</option>
-                                </select>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="http://localhost:8000/window/"> </a>
+        <a class="navbar-brand" href="http://localhost:8000/window/">MSHD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
 
-                <div class="form-row  mb-3" style="display: flex;">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/">灾情地图</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8000/window/lists/">灾情列表</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8000/window/report/">灾情上报</a>
 
-                    <label class="col-md-3">时间</label>
-
-                    <label class="col-md-8">
-                        <input name="when" type="datetime-local" step="01" class="form-control">
-                    </label>
-                </div>
-                <div class="form-row  mb-3" style="display: flex;">
-
-                    <label class="col-md-3">信息来源</label>
-
-                    <label class="col-md-8">
-                        <select name="source" form="earthquake_form" class="form-control">
-                            <option value="101">公网</option>
-                            <option value="202">通信网</option>
-                            <option value="203">电网</option>
-                            <option value="301">微博</option>
-                            <option value="401">川滇</option>
-                            <option value="501">基本震情</option>
-                        </select>
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-secondary mb-3" style="position: absolute;bottom: 0">提交</button>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                       data-toggle="dropdown" aria-expanded="false">
+                        Link
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Link</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
-    </div>
-    <br class="clear">
-</div>
-<!-- END Content -->
+    </nav>
 
-<div id="footer"></div>
+
+    <!-- Content -->
+    <div id="content" class="flex">
+
+        <!-- Content -->
+        <div id="content" class="bd-example" style="display: flex;margin-top: 50px">
+            <div class="card" style="width: 60rem;height: 30rem; margin: auto">
+                <div class="card-body">
+                    <h5 class="card-title">地震上报</h5>
+                    <form action="earthquake" method="post" id="earthquake_form" class="needs-validation">
+                        {#                        {% csrf_token %}#}
+
+                        <div class="form-row" style="display: flex;">
+                            <div class="form-group col-md-4 mb-3">
+                                <label>省</label>
+
+                                <label>
+                                    <select id="province" form="earthquake_form" class="form-control"
+                                            onchange="province_change()">
+                                        {% for province in provinces %}
+                                            <option value="{{ province }}"> {{ province }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-4 mb-3">
+                                <label>市</label>
+                                <label>
+                                    <select id="city" form="earthquake_form" class="form-control"
+                                            onchange="city_change()">
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div class="form-group col-md-4 mb-3">
+                                <label>县</label>
+                                <label>
+                                    <select id="area" form="earthquake_form" class="form-control">
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-row  mb-3" style="display: flex;">
+                            <label class="col-md-3">经度</label>
+                            <div class="form-row  mb-3" style="display: flex;">
+                                <label class="col-md-7">
+                                    <input name="longitude" type="number" required min="0" max="180" step="0.01"
+                                           class="form-control">
+                                </label>
+                                <label class="col-md-5">
+                                    <select name="east_or_west" form="earthquake_form" class="form-control">
+                                        <option value="east" selected>E</option>
+                                        <option value="west">W</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row  mb-3" style="display: flex;">
+                            <label class="col-md-3">纬度</label>
+                            <div class="form-row  mb-3" style="display: flex;">
+                                <label class="col-md-7">
+                                    <input name="latitude" type="number" required min="0" max="90" step="0.01"
+                                           class="form-control"></label>
+
+                                <label class="col-md-5">
+                                    <select name="north_or_south" form="earthquake_form" class="form-control">
+                                        <option value="north" selected>N</option>
+                                        <option value="south">W</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row  mb-3" style="display: flex;">
+
+                            <label class="col-md-3">时间</label>
+
+                            <label class="col-md-8">
+                                <input name="when" type="datetime-local" step="01" class="form-control">
+                            </label>
+                        </div>
+                        <div class="form-row  mb-3" style="display: flex;">
+
+                            <label class="col-md-3">信息来源</label>
+
+                            <label class="col-md-8">
+                                <select name="source" form="earthquake_form" class="form-control">
+                                    <option value="101">公网</option>
+                                    <option value="202">通信网</option>
+                                    <option value="203">电网</option>
+                                    <option value="301">微博</option>
+                                    <option value="401">川滇</option>
+                                    <option value="501">基本震情</option>
+                                </select>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success" style="position: absolute;bottom: 10px;width: 150px">提交
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <br class="clear">
+        </div>
+        <!-- END Content -->
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
 </div>
 <!-- END Container -->
+<script type="text/javascript">
 
+    function province_change() {
+
+        var url = "../data"/*json文件url，本地的就写本地的位置，如果是服务器的就写服务器的路径*/
+        var request = new XMLHttpRequest();
+        request.open("get", url);/*设置请求方法与路径*/
+        request.send(null);/*不发送数据到服务器*/
+        request.onload = function () {/*XHR对象获取到返回信息后执行*/
+            if (request.status == 200) {/*返回状态为200，即为数据获取成功*/
+                var json = JSON.parse(request.responseText);
+                var x = document.getElementById("province");
+                var y = document.getElementById("city");
+                var z = document.getElementById("area");
+                z.options.length = 0;
+                y.options.length = 0;
+                console.log(x.options[x.selectedIndex].value);
+                for (i in json) {
+                    if (x.options[x.selectedIndex].value == i) {
+                        var counter = 0;
+                        for (j in json[i]) {
+                            var option = document.createElement("option");
+                            option.text = j;
+                            option.value = j;
+                            y.options.add(option, counter);
+                            counter += 1;
+                            var counter_z = 0;
+                            for (k in json[i][j]) {
+                                var option = document.createElement("option");
+                                option.text = json[i][j][k];
+                                option.value = json[i][j][k];
+                                z.options.add(option, counter_z);
+                                counter_z += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        } // 清除second下拉框的所有内容
+
+
+    }
+
+    function city_change() {
+        var url = "../data"/*json文件url，本地的就写本地的位置，如果是服务器的就写服务器的路径*/
+        var request = new XMLHttpRequest();
+        request.open("get", url);/*设置请求方法与路径*/
+        request.send(null);/*不发送数据到服务器*/
+        request.onload = function () {/*XHR对象获取到返回信息后执行*/
+            if (request.status == 200) {/*返回状态为200，即为数据获取成功*/
+                var json = JSON.parse(request.responseText);
+                var x = document.getElementById("province");
+                var y = document.getElementById("city");
+                var z = document.getElementById("area");
+                z.options.length = 0;
+                for (i in json) {
+                    if (x.options[x.selectedIndex].value == i) {
+                        for (j in json[i]) {
+                            if (y.options[y.selectedIndex].value == j) {
+                                var counter = 0;
+                                for (k in json[i][j]) {
+                                    var option = document.createElement("option");
+                                    option.text = json[i][j][k];
+                                    option.value = json[i][j][k];
+                                    z.options.add(option, counter);
+                                    counter += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } // 清除second下拉框的所有内容
+
+
+    }
+</script>
 
 </body>
 </html>
