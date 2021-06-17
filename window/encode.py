@@ -2,6 +2,7 @@ import json
 
 location_data = open('window/data/location_dict.json', encoding='utf-8')
 location_dict = json.load(location_data)
+location_reverse_dict = {v : k for k, v in location_dict.items()}
 source = {
     '公网': '101',
     '通信网': '202',
@@ -155,7 +156,7 @@ def get_base_code(location_key, time_key):
 # 数据来源解码
 def get_source_desc(code):
     source_code = code[0:3]
-    return '数据来源：' + source_value[source_code]
+    return source_value[source_code]
 
 
 # 灾情数据解码
@@ -191,3 +192,20 @@ def get_base_desc(code):
                                                                                  hour=hour, minute=minute,
                                                                                  second=second,
                                                                                  location=location)
+
+
+def get_earthquake_desc(code):
+    return location_reverse_dict[code[:6]]
+
+def get_time_desc(code):
+    time_code=code
+    year = str(int(time_code[0:4]))
+    month = str(int(time_code[4:6]))
+    day = str(int(time_code[6:8]))
+    hour = str(int(time_code[8:10]))
+    minute = str(int(time_code[10:12]))
+    second = str(int(time_code[12:14]))
+    return '{year}年{month}月{day}日{hour}时{minute}分{second}秒'.format(year=year, month=month, day=day,
+                                                                                 hour=hour, minute=minute,
+                                                                                 second=second,
+                                                                             )
