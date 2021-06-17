@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse
 
 from window.crud import *
-
+import os
 
 def base(request):
     return render(request, 'window/base.html')
@@ -12,10 +12,15 @@ def base(request):
 def lists(request):
     # if request.method=='POST':
     #     return HttpResponse('asd')
-    th = ['1', '2', '3', '4']
-    Rows = list()
-    for i in range(25):
-        Rows.append(['1', '2', '3', '4'])
+    th = ['来源', '地点', '时间', '经度','维度']
+
+    objects = get_earthquake(0,10)
+    Rows=list()
+    for i in range(10):
+        Rows.append([get_source_desc(objects[i].source),
+                     get_earthquake_desc(objects[i].where),
+                     get_time_desc(str(objects[i].when)),
+                     objects[i].latitude])
     paginator = Paginator(Rows, 10)
     if request.method == "GET":
         # 获取 url 后面的 page 参数的值, 首页不显示 page 参数, 默认值是 1
@@ -73,3 +78,5 @@ def report_earthquake(request):
 def report_affection(request):
 
     return redirect('/window/lists/')
+
+

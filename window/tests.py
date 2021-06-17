@@ -1,4 +1,4 @@
-from django.db.models import F
+from django.db.models import F,Q
 from django.test import TestCase
 from django.urls import resolve
 from .models import *
@@ -61,3 +61,11 @@ class DataRead(TestCase):
                 when=get_time_code('发震时刻')
             )
             earthquake.save()
+
+    def test_get_earthquake(self):
+        return Earthquake.objects.all()
+
+    def test_get_time_desc(self):
+        code=	20210524072341
+        get_time_desc(str(code))
+        a=1+1
