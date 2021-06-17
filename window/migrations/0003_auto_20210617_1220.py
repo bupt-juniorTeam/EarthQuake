@@ -3,8 +3,13 @@
 from django.db import migrations, models
 import pandas as pd
 import os
-from window.encode import get_source_code, get_location_code, get_time_code
-from window.models import Earthquake
+
+from django.db.models import F
+
+from window.encode import get_source_code, get_location_code, get_time_code, get_disaster_set_code, get_index_code, \
+    get_grade_code
+from window.models import Earthquake, Set, Affection
+
 
 def forwards_func(apps, schema_editor):
     # print(os.getcwd())
@@ -18,6 +23,19 @@ def forwards_func(apps, schema_editor):
             latitude=row['纬度(°)']
         )
         earthquake.save()
+        set = Set.objects.create(
+            earthquake=earthquake,
+            set=get_disaster_set_code('人员伤亡及失踪-死亡'),
+            count=0
+        )
+        set.count = F('count') + 1
+        set.save()
+        set.refresh_from_db()
+        affection = Affection.objects.create(
+            set=set,
+            index=get_index_code(set.count),
+            grade=get_grade_code('特大')
+        )
 
 class Migration(migrations.Migration):
 
