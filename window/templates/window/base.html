@@ -7,7 +7,7 @@
 
     {% load static %}
 
-    {#    <link rel="stylesheet" type="text/css" href={% static 'window/base.css' %}>#}
+    <link rel="stylesheet" type="text/css" href={% static 'window/base.css' %}>
     {#    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->#}
     {#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"#}
     {#          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">#}
@@ -33,7 +33,7 @@
 <div id="container">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="http://localhost:8000/window/">    </a>
+        <a class="navbar-brand" href="http://localhost:8000/window/"> </a>
         <a class="navbar-brand" href="http://localhost:8000/window/">MSHD</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
             <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
 
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="http://localhost:8080/">灾情地图</a>
+                    <a class="nav-link" href="http://localhost:8080/">灾情地图</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8000/window/lists/">灾情列表</a>
