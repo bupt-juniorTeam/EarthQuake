@@ -82,4 +82,12 @@ def report_affection(request):
     create_affection(earthquake_id, set_code, grade)
     return redirect('/window/lists/')
 
+def return_location(request):
+    if(request.method=='GET'):
 
+        location_info = {
+            'lat':34.7,
+            'lng':98.25
+        }
+        data = json.dumps(location_info)
+        return HttpResponse(data)
