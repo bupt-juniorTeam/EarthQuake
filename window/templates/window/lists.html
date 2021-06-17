@@ -56,12 +56,12 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="affection" id="affection_form" class="needs-validation">
+                <form method="post" action="/window/report/affection" id="affection_form" class="needs-validation">
                     {% csrf_token %}
                     <div class="form-row  mb-3" style="display: flex;">
                         <label class="col-md-3">所属地震</label>
                         <label>
-                            <input class="col-md-8 earthquake_id" name="earthquake_id" disabled>
+                            <input type="text" class="col-md-8 earthquake_id" name="earthquake_id" readonly>
                         </label>
                     </div>
 
@@ -107,11 +107,11 @@
                                 <option value="3">一般</option>
                             </select></label>
                     </div>
+                    <button type="button" class="btn btn-outline-warning" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-outline-success">提交</button>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-warning" data-dismiss="modal">取消</button>
-                <button type="submit" class="btn btn-outline-success">提交</button>
             </div>
         </div>
     </div>
@@ -168,6 +168,7 @@
                 </li>
             </ul>
             <form class="d-flex">
+                {% csrf_token %}
                 <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -187,6 +188,9 @@
                     {% endfor %}
 
                     <th>
+                        地震详情
+                    </th>
+                    <th>
                         灾情上报
                     </th>
                 </tr>
@@ -196,13 +200,15 @@
 
                     <tr>
                         {% for item in row %}
-                            <a href="http://localhost:8000/window/lists/sublists/{{ item.id }}">
                             <td>{{ item }}</td>
-                            </a>
                         {% endfor %}
                         <td>
+                            <a type="button" class="btn btn-outline-secondary" herf="">详情
+                            </a>
+                        </td>
+                        <td>
                             <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
-                                    data-target="#exampleModal" data-whatever="{{row.0}}">上报
+                                    data-target="#exampleModal" data-whatever="{{ row.0 }}">上报
                             </button>
                         </td>
                     </tr>

@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse, JsonResponse
 
 from django.http import HttpResponse, FileResponse
+from django.views.decorators.csrf import csrf_exempt
 from pyecharts import options as opts
 from pyecharts.charts import Bar, Grid, Line
 from window.crud import *
@@ -100,6 +101,7 @@ def report_earthquake(request):
     return redirect('/window/lists/')
 
 
+@csrf_exempt
 def report_affection(request):
     earthquake_id = request.POST['earthquake_id']
     grade = request.POST['disaster_grade']
