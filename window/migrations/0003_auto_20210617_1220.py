@@ -30,6 +30,20 @@ def forwards_func(apps, schema_editor):
         )
         set.count = F('count') + 1
         set.save()
+        set = Set.objects.create(
+            earthquake=earthquake,
+            set=get_disaster_set_code('人员伤亡及失踪-受伤'),
+            count=0
+        )
+        set.count = F('count') + 1
+        set.save()
+        set = Set.objects.create(
+            earthquake=earthquake,
+            set=get_disaster_set_code('人员伤亡及失踪-失踪'),
+            count=0
+        )
+        set.count = F('count') + 1
+        set.save()
         set.refresh_from_db()
         affection = Affection.objects.create(
             set=set,
