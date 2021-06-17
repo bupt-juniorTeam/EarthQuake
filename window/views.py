@@ -9,9 +9,11 @@ from pyecharts import options as opts
 from pyecharts.charts import Bar, Grid, Line
 from window.crud import *
 from pyecharts.globals import CurrentConfig
+
 default_host = CurrentConfig.ONLINE_HOST
 custom_host = "https://cdnjs.cloudflare.com/ajax/libs/echarts/4.8.0/"
 CurrentConfig.ONLINE_HOST = custom_host
+
 
 def base(request):
     return render(request, 'window/base.html')
@@ -107,13 +109,10 @@ def return_data_json(request):
 
 
 def graph_vision(request):
-    columns = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
-    frequency_Mia = [0.00686341, 0.16525505, 0.06423721, 0.02455568, 0.08432669, 0.09781415,
-                     0.1819265, 0.03405159, 0.00518489, 0.19687783, 0.03675546, 0.10215155]
-    frequency_Kun = [0.06329212, 0.11706359, 0.07749633, 0.01901045, 0.00198184, 0.05137212,
-                     0.10303296, 0.16241123, 0.24436542, 0.14581221, 0.00485712, 0.0093046]
-    frequency_Kai = [0.14999468, 0.23061133, 0.21486037, 0.03056881, 0.03298941, 0.00217304,
-                     0.04333368, 0.0789938, 0.12009764, 0.0481514, 0.02209792, 0.02612792]
+    columns = ["1月", "2月", "3月", "4月", "5月", "6月"]
+    frequency_Mia = [0.09263889, 0.14027504, 0.45700745, 0.24483201, 0.01616143, 0.04908517]
+    frequency_Kun = [0.10187371, 0.21386396, 0.07714241, 0.03004741, 0.29772922, 0.27934329]
+    frequency_Kai = [0.10187371, 0.21386396, 0.07714241, 0.03004741, 0.29772922, 0.27934329]
 
     bar = (
         Bar()
@@ -124,7 +123,7 @@ def graph_vision(request):
             .set_global_opts(
             xaxis_opts=opts.AxisOpts(name="震级"),
             yaxis_opts=opts.AxisOpts(name="发生地震城市数目"),
-            title_opts=opts.TitleOpts(title="2009年省份灾情震级图"))
+            title_opts=opts.TitleOpts(title="2021年省份灾情震级图"))
     )
 
     line = (
@@ -134,7 +133,7 @@ def graph_vision(request):
             .add_yaxis("昆明", frequency_Kun)
             .add_yaxis("开封", frequency_Kai)
             .set_global_opts(
-            title_opts=opts.TitleOpts(title="2009年城市发生地震频率图", pos_top="48%"),
+            title_opts=opts.TitleOpts(title="2021年城市发生地震频率图", pos_top="48%"),
             legend_opts=opts.LegendOpts(pos_top="48%"),
         )
     )
