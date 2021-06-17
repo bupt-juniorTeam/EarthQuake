@@ -62,5 +62,5 @@ def retrieve_set(earthquake_id, set_key):
 def retrieve_affection(set_id):
     return Affection.objects.filter(Q(set=Set.objects.get(id=set_id)))
 
-def get_earthquake(start,end):
-    return Earthquake.objects.all()[start:end]
+def get_earthquake():
+    return Earthquake.objects.all()
