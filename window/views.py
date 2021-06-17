@@ -76,7 +76,10 @@ def report_earthquake(request):
 
 
 def report_affection(request):
-
+    earthquake_id = request.POST['earthquake_id']
+    grade = request.POST['disaster_grade']
+    set_code = request.POST['disaster_info']
+    create_affection(earthquake_id, set_code, grade)
     return redirect('/window/lists/')
 
 

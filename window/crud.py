@@ -16,22 +16,23 @@ def create_new_earthquake(source, where, when, longitude, latitude):
 
 def create_new_set(earthquake_id, set_key):
     earthquake = Earthquake.objects.get(id=earthquake_id)
-    Set.objects.create(
+    new_set = Set.objects.create(
         earthquake=earthquake,
         set=get_disaster_set_code(set_key),
         count=0
     )
 
 
-def create_affection(set_id, grade_key):
-    set = Set.objects.get(id=set_id)
+def create_affection(earthquake_id, set_code, grade_code):
+    earthquake = Earthquake.objects.get(id=earthquake_id)
+    set = Set.objects.get(earthquake=earthquake, set=set_code)
     set.count = F('count') + 1
     set.save()
     set.refresh_from_db()
     Affection.objects.create(
         set=set,
         index=get_index_code(set.count),
-        grade=get_grade_code(grade_key)
+        grade=grade_code
     )
 
 
