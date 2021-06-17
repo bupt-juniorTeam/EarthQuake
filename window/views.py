@@ -22,7 +22,7 @@ def base(request):
 def lists(request):
     # if request.method=='POST':
     #     return HttpResponse('asd')
-    th = ['id','来源', '地点', '时间', '经度', '纬度']
+    th = ['id', '来源', '地点', '时间', '经度', '纬度']
 
     objects = get_earthquake()
     Rows = list()
@@ -32,7 +32,7 @@ def lists(request):
                      get_earthquake_desc(objects[i].where),
                      get_time_desc(str(objects[i].when)),
                      objects[i].latitude,
-                    objects[i].longitude,]
+                     objects[i].longitude, ]
                     )
     paginator = Paginator(Rows, 10)
     if request.method == "GET":
@@ -115,7 +115,7 @@ def graph_vision(request):
     columns = ["1月", "2月", "3月", "4月", "5月", "6月"]
     frequency_Mia = [0.09263889, 0.14027504, 0.45700745, 0.24483201, 0.01616143, 0.04908517]
     frequency_Kun = [0.10187371, 0.21386396, 0.07714241, 0.03004741, 0.29772922, 0.27934329]
-    frequency_Kai = [0.10187371, 0.21386396, 0.07714241, 0.03004741, 0.29772922, 0.27934329]
+    frequency_Kai = [0.03127373, 0.41961386, 0.37733207, 0.01869715, 0.0839328, 0.0691504]
 
     bar = (
         Bar()
