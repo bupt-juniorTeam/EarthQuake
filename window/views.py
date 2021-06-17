@@ -72,6 +72,6 @@ def report_earthquake(request):
 
 def report_affection(request):
     earthquake_id = request.POST['earthquake_id']
-    grade = request.POST[]
+    grade = request.POST['disaster_grade']
 
     return redirect('/window/lists/')
