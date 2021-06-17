@@ -9,6 +9,6 @@ urlpatterns = [
     path('report/', views.report),
     path('report/earthquake', views.report_earthquake),
     path('report/affection', views.report_affection),
-    path('data', views.return_data_json)
+    path('data', views.return_data_json),
     path('graph/',views.graph_vision),
 ]

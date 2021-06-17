@@ -17,10 +17,10 @@ def base(request):
 def lists(request):
     # if request.method=='POST':
     #     return HttpResponse('asd')
-    th = ['来源', '地点', '时间', '经度','维度']
+    th = ['来源', '地点', '时间', '经度', '维度']
 
-    objects = get_earthquake(0,10)
-    Rows=list()
+    objects = get_earthquake(0, 10)
+    Rows = list()
     for i in range(10):
         Rows.append([get_source_desc(objects[i].source),
                      get_earthquake_desc(objects[i].where),
@@ -70,7 +70,10 @@ def report(request):
 
 def report_earthquake(request):
     source = request.POST['source']
-    where = request.POST['province'] + request.POST['city'] + request.POST['area']
+    if request.POST['city'] != "市辖区":
+        where = request.POST['province'] + request.POST['city'] + request.POST['area']
+    else:
+        where = request.POST['province'] + request.POST['area']
     when = request.POST['when']
     date, time = when.split('T')
     year, month, day = date.split('-')
@@ -103,7 +106,7 @@ def return_data_json(request):
 def graph_vision(request):
     columns = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
     frequency_Mia = [0.00686341, 0.16525505, 0.06423721, 0.02455568, 0.08432669, 0.09781415,
-                     0.1819265,  0.03405159, 0.00518489, 0.19687783, 0.03675546, 0.10215155]
+                     0.1819265, 0.03405159, 0.00518489, 0.19687783, 0.03675546, 0.10215155]
     frequency_Kun = [0.06329212, 0.11706359, 0.07749633, 0.01901045, 0.00198184, 0.05137212,
                      0.10303296, 0.16241123, 0.24436542, 0.14581221, 0.00485712, 0.0093046]
     frequency_Kai = [0.14999468, 0.23061133, 0.21486037, 0.03056881, 0.03298941, 0.00217304,
@@ -142,12 +145,12 @@ def graph_vision(request):
     grid.render("window/templates/window/graph.html")
     return render(request, "window/graph.html")
 
-def return_location(request):
-    if(request.method=='GET'):
 
+def return_location(request):
+    if (request.method == 'GET'):
         location_info = {
-            'lat':34.7,
-            'lng':98.25
+            'lat': 34.7,
+            'lng': 98.25
         }
         data = json.dumps(location_info)
         return HttpResponse(data)
