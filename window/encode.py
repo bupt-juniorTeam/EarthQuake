@@ -57,6 +57,7 @@ for k, v in disaster_info.items():
 for k, v in disaster_grade.items():
     disaster_grade_value.update({v: k})
 
+disaster_reverse_info = {v : k for k, v in disaster_info.items()}
 
 # 基础地理信息编码
 # location_key:
@@ -85,6 +86,9 @@ def get_grade_code(disaster_grade_key):
 
 def get_disaster_set_code(disaster_info_key):
     return disaster_info[disaster_info_key]
+
+def get_disaster_set_desc(code):
+    return disaster_reverse_info[code]
 
 
 def get_disaster_info_code(disaster_info_key, index, disaster_grade_key):
