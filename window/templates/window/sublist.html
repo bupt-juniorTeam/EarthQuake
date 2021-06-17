@@ -44,90 +44,6 @@
 </head>
 
 <body>
-<!-- modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">灾情提交</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <form method="post" action="/window/report/affection" id="affection_form" class="needs-validation">
-                    {% csrf_token %}
-                    <div class="form-row  mb-3" style="display: flex;">
-                        <label class="col-md-3">所属地震</label>
-                        <label>
-                            <input type="text" class="col-md-8 earthquake_id" name="earthquake_id" readonly>
-                        </label>
-                    </div>
-
-                    <div class="form-row  mb-3" style="display: flex;">
-                        <label class="col-md-3">类型</label>
-                        <label class="col-md-8">
-                            <select name="disaster_info" form="affection_form" class="form-control">
-                                <option value="111">死亡</option>
-                                <option value="112">受伤</option>
-                                <option value="113">失踪</option>
-                                <option value="221">房屋破坏-土木</option>
-                                <option value="222">房屋破坏-砖木</option>
-                                <option value="223">房屋破坏-砖混</option>
-                                <option value="224">房屋破坏-框架</option>
-                                <option value="225">房屋破坏-其他</option>
-                                <option value="331">交通</option>
-                                <option value="332">供水</option>
-                                <option value="333">输油</option>
-                                <option value="334">燃气</option>
-                                <option value="335">电力</option>
-                                <option value="336">通信</option>
-                                <option value="337">水利</option>
-                                <option value="441">崩塌</option>
-                                <option value="442">滑坡</option>
-                                <option value="443">泥石流</option>
-                                <option value="444">岩溶塌陷</option>
-                                <option value="445">地裂缝</option>
-                                <option value="446">地面沉降</option>
-                                <option value="447">次生灾害-其他</option>
-                                <option value="551">基本震情</option>
-                                <option value="552">灾情预测</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="form-row  mb-3" style="display: flex;">
-                        <label class="col-md-3">破坏程度</label>
-                        <label class="col-md-8">
-                            <select name="disaster_grade" form="affection_form" class="form-control">
-                                <option value="0">特大</option>
-                                <option value="1">重大</option>
-                                <option value="2">较大</option>
-                                <option value="3">一般</option>
-                            </select></label>
-                    </div>
-                    <button type="button" class="btn btn-outline-warning" data-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-outline-success">提交</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript">
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        var recipient = button.data('whatever'); // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this);
-        console.log(recipient);
-        modal.find('.modal-body input').val(recipient);
-    })
-</script>
-
 <!-- Container -->
 <div id="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -172,7 +88,6 @@
                 </li>
             </ul>
             <form class="d-flex">
-                {% csrf_token %}
                 <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -190,13 +105,6 @@
                     {% for item in th %}
                         <th>{{ item }}</th>
                     {% endfor %}
-
-                    <th>
-                        地震详情
-                    </th>
-                    <th>
-                        灾情上报
-                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -204,18 +112,10 @@
 
                     <tr>
                         {% for item in row %}
+                            <a href="http://localhost:8000/window/lists/sublists/{{ item.id }}">
                             <td>{{ item }}</td>
-                        {% endfor %}
-                        <td>
-                            <a type="button" class="btn btn-outline-secondary"
-                               href="http://localhost:8000/window/lists/sublists?id={{ row.0 }}">详情
                             </a>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal"
-                                    data-target="#exampleModal" data-whatever="{{ row.0 }}">上报
-                            </button>
-                        </td>
+                        {% endfor %}
                     </tr>
 
                 {% endfor %}
