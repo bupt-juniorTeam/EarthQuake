@@ -62,7 +62,8 @@ for k, v in disaster_grade.items():
 #   非直辖市：xxx省xxx市xxx县(区)
 #   直辖市：xxx市xxx区
 def get_location_code(location_key):
-    return location_dict[location_key] + '000000'
+    # return location_dict[location_key]+'000000'
+    return location_dict.get(location_key,'000000') + '000000'
 
 
 # 灾情信息编码
