@@ -34,7 +34,7 @@ def lists(request):
             return HttpResponse('找不到页面的内容')
     return render(request, 'window/lists.html', {'th': th, 'rows': rows})
 
-def gen(request):
+def genByWhenAndWhere(request):
     when = request.GET.get('when')
     where = request.GET.get('where')
 
