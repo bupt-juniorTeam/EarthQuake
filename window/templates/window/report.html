@@ -64,17 +64,18 @@
     <div class="card" style="width: 35rem;height: 20rem; margin: auto">
         <div class="card-body">
             <h5 class="card-title">地震上报</h5>
-            <form action="TODO" method="post" id="earthquake_form" class="needs-validation">
+            <form action="earthquake" method="post" id="earthquake_form" class="needs-validation">
                 {% csrf_token %}
                 <div class="form-row" style="display: flex;">
-                    省：<input type="text" name="province">
-                    市：<input type="text" name="city">
-                    县：<input type="text" name="area">
+                    省：<input type="text" required name="province">
+                    市：<input type="text" required name="city">
+                    县：<input type="text"  name="area">
                     <div class="col-md-6 mb-3">
                         <label class="colFormLabel">经度</label>
                         <div class="col-sm-10" style="display: flex;">
                             <label class="col-md-8">
-                                <input name="longitude" type="number" step="0.01" class="form-control">
+                                <input name="longitude" type="number" required min="0" max="180" step="0.01"
+                                       class="form-control">
                             </label>
                             <label class="col-md-3">
                                 <select name="east_or_west" form="earthquake_form" class="form-control">
@@ -88,7 +89,8 @@
                         <label class="colFormLabel">纬度</label>
                         <div class="col-sm-10" style="display: flex;">
                             <label class="col-md-8">
-                                <input name="latitude" type="number" step="0.01" class="form-control">
+                                <input name="latitude" type="number" required min="0" max="90" step="0.01"
+                                       class="form-control">
                             </label>
                             <label class="col-md-3">
                                 <select name="north_or_south" form="earthquake_form" class="form-control">
@@ -128,62 +130,62 @@
         </div>
     </div>
 
-    <div class="card" style="width: 35rem;height: 20rem; margin: auto">
-        <div class="card-body">
-            <h5 class="card-title">灾情上报</h5>
-            <form action="TODO" id="affection_form" class="needs-validation">
-
-                <div class="form-row  mb-3" style="display: flex;">
-                    <label class="col-md-3">所属地震</label>
-                    <label class="col-md-8">{% earthquake %}</label>
-                </div>
-
-                <div class="form-row  mb-3" style="display: flex;">
-                    <label class="col-md-3">类型</label>
-                    <label class="col-md-8">
-                        <select name="disaster_grade" form="affection_form" class="form-control">
-                            <option value="111">死亡</option>
-                            <option value="112">受伤</option>
-                            <option value="113">失踪</option>
-                            <option value="221">房屋破坏-土木</option>
-                            <option value="222">房屋破坏-砖木</option>
-                            <option value="223">房屋破坏-砖混</option>
-                            <option value="224">房屋破坏-框架</option>
-                            <option value="225">房屋破坏-其他</option>
-                            <option value="331">交通</option>
-                            <option value="332">供水</option>
-                            <option value="333">输油</option>
-                            <option value="334">燃气</option>
-                            <option value="335">电力</option>
-                            <option value="336">通信</option>
-                            <option value="337">水利</option>
-                            <option value="441">崩塌</option>
-                            <option value="442">滑坡</option>
-                            <option value="443">泥石流</option>
-                            <option value="444">岩溶塌陷</option>
-                            <option value="445">地裂缝</option>
-                            <option value="446">地面沉降</option>
-                            <option value="447">次生灾害-其他</option>
-                            <option value="551">基本震情</option>
-                            <option value="552">灾情预测</option>
-                        </select>
-                    </label>
-                </div>
-
-                <div class="form-row  mb-3" style="display: flex;">
-                    <label class="col-md-3">破坏程度</label>
-                    <label class="col-md-8">
-                        <select name="disaster_grade" form="affection_form" class="form-control">
-                            <option value="0">特大</option>
-                            <option value="1">重大</option>
-                            <option value="2">较大</option>
-                            <option value="3">一般</option>
-                        </select></label>
-                </div>
-                <button type="submit" class="btn btn-secondary mb-3" style="position: absolute;bottom: 0">提交</button>
-            </form>
-        </div>
-    </div>
+    {#    <div class="card" style="width: 35rem;height: 20rem; margin: auto">#}
+    {#        <div class="card-body">#}
+    {#            <h5 class="card-title">灾情上报</h5>#}
+    {#            <form action="affection" id="affection_form" class="needs-validation">#}
+    {##}
+    {#                <div class="form-row  mb-3" style="display: flex;">#}
+    {#                    <label class="col-md-3">所属地震</label>#}
+    {#                    <label class="col-md-8"></label>#}
+    {#                </div>#}
+    {##}
+    {#                <div class="form-row  mb-3" style="display: flex;">#}
+    {#                    <label class="col-md-3">类型</label>#}
+    {#                    <label class="col-md-8">#}
+    {#                        <select name="disaster_grade" form="affection_form" class="form-control">#}
+    {#                            <option value="111">死亡</option>#}
+    {#                            <option value="112">受伤</option>#}
+    {#                            <option value="113">失踪</option>#}
+    {#                            <option value="221">房屋破坏-土木</option>#}
+    {#                            <option value="222">房屋破坏-砖木</option>#}
+    {#                            <option value="223">房屋破坏-砖混</option>#}
+    {#                            <option value="224">房屋破坏-框架</option>#}
+    {#                            <option value="225">房屋破坏-其他</option>#}
+    {#                            <option value="331">交通</option>#}
+    {#                            <option value="332">供水</option>#}
+    {#                            <option value="333">输油</option>#}
+    {#                            <option value="334">燃气</option>#}
+    {#                            <option value="335">电力</option>#}
+    {#                            <option value="336">通信</option>#}
+    {#                            <option value="337">水利</option>#}
+    {#                            <option value="441">崩塌</option>#}
+    {#                            <option value="442">滑坡</option>#}
+    {#                            <option value="443">泥石流</option>#}
+    {#                            <option value="444">岩溶塌陷</option>#}
+    {#                            <option value="445">地裂缝</option>#}
+    {#                            <option value="446">地面沉降</option>#}
+    {#                            <option value="447">次生灾害-其他</option>#}
+    {#                            <option value="551">基本震情</option>#}
+    {#                            <option value="552">灾情预测</option>#}
+    {#                        </select>#}
+    {#                    </label>#}
+    {#                </div>#}
+    {##}
+    {#                <div class="form-row  mb-3" style="display: flex;">#}
+    {#                    <label class="col-md-3">破坏程度</label>#}
+    {#                    <label class="col-md-8">#}
+    {#                        <select name="disaster_grade" form="affection_form" class="form-control">#}
+    {#                            <option value="0">特大</option>#}
+    {#                            <option value="1">重大</option>#}
+    {#                            <option value="2">较大</option>#}
+    {#                            <option value="3">一般</option>#}
+    {#                        </select></label>#}
+    {#                </div>#}
+    {#                <button type="submit" class="btn btn-secondary mb-3" style="position: absolute;bottom: 0">提交</button>#}
+    {#            </form>#}
+    {#        </div>#}
+    {#    </div>#}
 
     <br class="clear">
 </div>
