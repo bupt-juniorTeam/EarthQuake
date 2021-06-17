@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上报</title>
+</head>
+<body>
+<h2>地震上报</h2>
+<form action="TODO" id="earthquake_form">
+    震源：
+    经度：
+    <input name="latitude" type="number" min="0" max="180">
+    <select name="east_or_west" form="earthquake_form">
+        <option value="east">E</option>
+        <option value="west">W</option>
+    </select>
+    纬度：
+    <input name="longitude" type="number" min="0" max="90">
+    <select name="north_or_south" form="earthquake_form">
+        <option value="north">N</option>
+        <option value="south">W</option>
+    </select>
+    时间：
+    <input name="when" type="datetime-local" step="01">
+    信息来源：
+    <select name="source" form="earthquake_form">
+        <option value="101">公网</option>
+        <option value="202">通信网</option>
+        <option value="203">电网</option>
+        <option value="301">微博</option>
+        <option value="401">川滇</option>
+        <option value="501">基本震情</option>
+    </select>
+    <input type="submit">
+</form>
+
+<h2>灾情上报</h2>
+<form action="TODO" id="affection_form">
+    所属地震：{% earthquake %}
+    类型：
+    <select name="disaster_grade" form="affection_form">
+        <option value="111">死亡</option>
+        <option value="112">受伤</option>
+        <option value="113">失踪</option>
+        <option value="221">房屋破坏-土木</option>
+        <option value="222">房屋破坏-砖木</option>
+        <option value="223">房屋破坏-砖混</option>
+        <option value="224">房屋破坏-框架</option>
+        <option value="225">房屋破坏-其他</option>
+        <option value="331">交通</option>
+        <option value="332">供水</option>
+        <option value="333">输油</option>
+        <option value="334">燃气</option>
+        <option value="335">电力</option>
+        <option value="336">通信</option>
+        <option value="337">水利</option>
+        <option value="441">崩塌</option>
+        <option value="442">滑坡</option>
+        <option value="443">泥石流</option>
+        <option value="444">岩溶塌陷</option>
+        <option value="445">地裂缝</option>
+        <option value="446">地面沉降</option>
+        <option value="447">次生灾害-其他</option>
+        <option value="551">基本震情</option>
+        <option value="552">灾情预测</option>
+    </select>
+    破坏程度：
+    <select name="disaster_grade" form="affection_form">
+        <option value="0">特大</option>
+        <option value="1">重大</option>
+        <option value="2">较大</option>
+        <option value="3">一般</option>
+    </select>
+    <input type="submit">
+</form>
+</body>
+</html>
