@@ -25,7 +25,8 @@ def create_new_set(earthquake_id, set_code):
 
 def create_affection(earthquake_id, set_code, grade_code):
     earthquake = Earthquake.objects.get(id=earthquake_id)
-    create_new_set(earthquake_id, set_code)
+    if not Set.objects.get(earthquake=earthquake, set=set_code):
+        create_new_set(earthquake_id, set_code)
     set = Set.objects.get(earthquake=earthquake, set=set_code)
     set.count = F('count') + 1
     set.save()
